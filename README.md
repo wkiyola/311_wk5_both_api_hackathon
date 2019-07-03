@@ -26,119 +26,6 @@ You will work as a group to create APIs from the very beginning. Notice that the
 
 _Note: Many tasks are intentionally vague. It's up to you to learn/google some of these_
 
-## Creating APIs
-
-Let's get started...
-
-### STEPS
-
-#### Initialize your project
-
-1. In this folder run `npm init`. Accept all the defaults (press enter a bunch of times)
-
-2. You should now have a `package.json` file
-
-3. Npm install the following packages: `express body-parser nodemon mysql`
-
-4. You should now have a `package-lock.json` file and a `node_modules` folder
-
-5. Create an `index.js` file and type `console.log('testing')` on the first line
-
-6. Open the package.json file and add a new `start` script. The value should be `nodemon ./index.js`
-
-7. Type `npm start` in the terminal. Did you see the log?
-
-8. Change the work "testing" to "re-testing". Did it re-load with the new log?
-
-9. Setup is complete
-
-10. Stop and commit/push work. Everyone else pull the updated code
-
-#### Basic Express
-
-1. Remove the "console.log" from the index.js file
-
-2. On the first line, import express: `const express = require('express')`
-
-3. Initialize the app on the second line: `const app = express()`
-
-4. Have the app listen on port 4001
-
-5. Re-run the `npm start` command if necessary.. is the app running?
-
-6. Navigate to `http://localhost:4001` in the browser to check if the app is running
-
-7. Before the "app.listen", add a default GET route and `res.send` the text: "Welcome to our API"
-
-8. Congratulations, we have a server running
-
-#### Express routes - BEGINNING
-
-1. Create a new folder called `routes`
-
-2. In the routes folder, create a new file called `employees.js`
-
-3. Create a router and make GET routes for `/, /:id, firstname/:first_name`
-
-4. For right now, use `res.send` to send back the text "getting employees..." for each route. We will update this later
-
-5. Export the router and import it into the `index.js` file. Use it with the prefix of "employees" so that each route above starts with "employees"
-
-#### Express controllers - BEGINNING
-
-1. Create a new folder called `controllers`
-
-2. In the controllers folder, create a new file called `employees.js`
-
-3. Create the following functions `getEmployees, getEmployeesById, getEmployeesByFirstName`
-
-4. Move the logic (everything after the route path) from the employees router into these functions
-
-5. Export these functions: `module.exports = { getEmployees, getEmployeesById, getEmployeesByFirstName }`
-
-5. Import these functions back into the employees router and use them `router.get('/:id', controller.getEmployeesById)`
-
-6. Everything should have stayed the same. If you navigate to `http://localhost:4001/employees/5` you should see the text "getting employees..."
-
-#### Hooking up MySQL
-
-1. Create a new folder called `mysql`
-
-2. In the mysql folder, create a new file called `connection.js`
-
-3. Import `mysql` at the top of the file
-
-4. Create a function (_singleton_) that creates a connection pool (if it doesn't already exist) and returns it. Export this function
-  * Remember to use the appropriate credentials from the ONE database we are currently sharing and make sure the "database" field in the connection pool is set to "employees"
-
-5. Import the previous function into whichever file needs it. This will usually be the controller. You will import this connection as `pool` and use `pool.query` to query the database. Remember that the first argument to this function is a SELECT statement and the second argument is a callback with `(err, results)` parameters
-
-6. If at any point (in any file) we find an `err` when using `pool.query`, return a 500 status code and the text, "something went wrong"
-
-#### Employees controller - CONTINUED
-
-1. Import the `pool` function from `mysql/connection` at the top of the file (controllers/employees.js). Additionally import the general `mysql` package 
-
-2. Update the `getEmployees` function so that it calls the database, __selecting all fields from the employees table but limiting the results to 50__. Use `res.json` to return the results to the user
-
-3. Update the `getEmployeesById` function so that it calls the database, __selecting all fields from the employees table where the emp_no matches the id query parameter__. The should return one result. Use `res.json` to return the result to the user
-
-4. Update the `getEmployeesByFirstName` function so that it calls the database, __selecting all fields from the employees table where the first_name matches the first_name query parameter__. The could return multiple results. Use `res.json` to return the results to the user
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Database setup
 
 #### Download MySQL
@@ -194,3 +81,116 @@ We are going to use sample data given to use by MySQL. An overview of the proces
 10. You should see 6 tables under this database. There are over 2 million records among those two tables
 
 11. Start tinkering with the data via SELECT statements to get familiar with it. We will use this data with our API
+
+## Creating APIs
+
+Let's get started...
+
+### STEPS
+
+#### 1. Initialize your project
+
+* In this folder run `npm init`. Accept all the defaults (press enter a bunch of times)
+
+* You should now have a `package.json` file
+
+* Npm install the following packages: `express body-parser nodemon mysql`
+
+* You should now have a `package-lock.json` file and a `node_modules` folder
+
+* Create an `index.js` file and type `console.log('testing')` on the first line
+
+* Open the package.json file and add a new `start` script. The value should be `nodemon ./index.js`
+
+* Type `npm start` in the terminal. Did you see the log?
+
+* Change the work "testing" to "re-testing". Did it re-load with the new log?
+
+* Setup is complete
+
+* Stop and commit/push work. Everyone else pull the updated code
+
+
+#### 2. Basic Express
+
+* Remove the "console.log" from the index.js file
+
+* On the first line, import express: `const express = require('express')`
+
+* Initialize the app on the second line: `const app = express()`
+
+* Have the app listen on port 4001
+
+* Re-run the `npm start` command if necessary.. is the app running?
+
+* Navigate to `http://localhost:4001` in the browser to check if the app is running
+
+* Before the "app.listen", add a default GET route and `res.send` the text: "Welcome to our API"
+
+* Congratulations, we have a server running
+
+
+#### 3. Express routes - BEGINNING
+
+* Create a new folder called `routes`
+
+* In the routes folder, create a new file called `employees.js`
+
+* Create a router and make GET routes for `/, /:id, firstname/:first_name`
+
+* For right now, use `res.send` to send back the text "getting employees..." for each route. We will update this later
+
+* Export the router and import it into the `index.js` file. Use it with the prefix of "employees" so that each route above starts with "employees"
+
+#### 4. Express controllers - BEGINNING
+
+* Create a new folder called `controllers`
+
+* In the controllers folder, create a new file called `employees.js`
+
+* Create the following functions `getEmployees, getEmployeesById, getEmployeesByFirstName`
+
+* Move the logic (everything after the route path) from the employees router into these functions
+
+* Export these functions: `module.exports = { getEmployees, getEmployeesById, getEmployeesByFirstName }`
+
+* Import these functions back into the employees router and use them `router.get('/:id', controller.getEmployeesById)`
+
+* Everything should have stayed the same. If you navigate to `http://localhost:4001/employees/5` you should see the text "getting employees..."
+
+#### 5. Hooking up MySQL
+
+* Create a new folder called `mysql`
+
+* In the mysql folder, create a new file called `connection.js`
+
+* Import `mysql` at the top of the file
+
+* Create a function (_singleton_) that creates a connection pool (if it doesn't already exist) and returns it. Export this function
+  * Remember to use the appropriate credentials from the ONE database we are currently sharing and make sure the "database" field in the connection pool is set to "employees"
+
+* Import the previous function into whichever file needs it. This will usually be the controller. You will import this connection as `pool` and use `pool.query` to query the database. Remember that the first argument to this function is a SELECT statement and the second argument is a callback with `(err, results)` parameters
+
+* If at any point (in any file) we find an `err` when using `pool.query`, return a 500 status code and the text, "something went wrong"
+
+#### 6. Employees controller - CONTINUED
+
+* Import the `pool` function from `mysql/connection` at the top of the file (controllers/employees.js). Additionally import the general `mysql` package 
+
+* Update the `getEmployees` function so that it calls the database, __selecting all fields from the employees table but limiting the results to 50__. Use `res.json` to return the results to the user
+
+* Update the `getEmployeesById` function so that it calls the database, __selecting all fields from the employees table where the emp_no matches the id query parameter__. The should return one result. Use `res.json` to return the result to the user
+
+* Update the `getEmployeesByFirstName` function so that it calls the database, __selecting all fields from the employees table where the first_name matches the first_name query parameter__. The could return multiple results. Use `res.json` to return the results to the user
+
+#### Salaries and Departments
+
+* Repeat steps 3-6 to create three more routes tying employee information to their current salaries or departments. New routes, controllers and queries will need to be created. You are free to collaboratively name these routes/controller functions anything you wish.
+
+#### QA
+
+All routes should be returning data from the database visibile through either the browser or Postman. 
+
+## Summary
+
+When complete, there should be a fully functioning API integrated with an external MySQL database. This is most of the work required to create an API. Congratulations!
