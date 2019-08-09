@@ -1,23 +1,35 @@
-// const employees = require("../data/users");
-// const sampleUser = require("../data/sampleUser");
+const mysql = require("mysql");
+const pool = require("../mysql/connection");
+const { handleSQLError } = require("../mysql/error");
 
 
 const getEmployees = (req, res) => {
-  res.json(employees);
+  pool.query("SELECT * FROM users", (err, rows) => {
+    if (err) return handleSQLError(res, err);
+    return res.json(rows);
+  });
 };
 
 const getEmployeesById = (req, res) => {
-  const employee = employees.find(function(item) {
-    return item.emp_no == req.params.id;
+  let mysql = `SELECT ??, ??, ?? FROM ?? WHERE ?? = ${req.params.id}`;
+  mysql = mysql.format(mysql, ["id", "first_name", "last_name", "users", "id"]);
+  pool.query(mysql, (err, rows) => {
+    if (err) return handleSQLError(res, err);
+    return res.json(rows);
   });
-  if (employee) {
-    res.json(employee)
-  } else {
-    res.status(404).json({ msg: `No employee data found.` });
-  }
+};
+
+const getEmployeesByFirstName = (req, res) => {
+  let mysql = `SELECT ??, ??, ?? FROM ?? WHERE ?? = ${req.params.first_name}`;
+  mysql = mysql.format(mysql, ["id", "first_name", "last_name", "users", "id"]);
+  pool.query(mysql, (err, rows) => {
+    if (err) return handleSQLError(res, err);
+    return res.json(rows);
+  });
 };
 
 module.exports = {
   getEmployees,
-  getEmployeesById
+  getEmployeesById,
+  getEmployeesByFirstName
 }
