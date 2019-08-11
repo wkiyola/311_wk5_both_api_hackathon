@@ -1,0 +1,17 @@
+{
+  "name": "expressapi",
+  "version": "1.0.0",
+  "description": "API example",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b\u001b[B\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Cnode app.js"
+  },
+  "author": "William K",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.1",
+    "path": "^0.12.7"
+  }
+}
